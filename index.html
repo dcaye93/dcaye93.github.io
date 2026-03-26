@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Denver T. Cayetano — Forest Ecologist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --forest:  #1C3A2B;
+      --canopy:  #2D5E3E;
+      --leaf:    #4A8C5C;
+      --moss:    #7AB68A;
+      --sky:     #E8F0EA;
+      --paper:   #F6F4EF;
+      --ink:     #1A1F1C;
+      --muted:   #5A6B60;
+      --border:  #D0DDD4;
+      --gold:    #A0750A;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.65; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--forest);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .8rem 2.5rem;
+    }
+    .nav-name { font-family: 'Lora', serif; font-size: 1.05rem; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-links a { color: #B8D8C0; font-size: .85rem; text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+
+    /* PAGE */
+    .page { max-width: 1060px; margin: 0 auto; padding: 6rem 2rem 0; }
+
+    /* HERO */
+    #about {
+      display: grid; grid-template-columns: 240px 1fr;
+      gap: 3rem; padding: 3rem 0 3.5rem; border-bottom: 1px solid var(--border);
+    }
+    .profile-col { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .avatar {
+      width: 200px; height: 200px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--canopy), var(--forest));
+      border: 4px solid var(--moss);
+      display: flex; align-items: center; justify-content: center; font-size: 5.5rem;
+    }
+    .profile-name { font-family: 'Lora', serif; font-size: 1.35rem; text-align: center; color: var(--forest); }
+    .profile-org { font-size: .84rem; color: var(--canopy); font-weight: 600; text-align: center; line-height: 1.4; }
+    .profile-title { font-size: .82rem; color: var(--muted); text-align: center; line-height: 1.5; }
+    .social-links { display: flex; gap: .45rem; flex-wrap: wrap; justify-content: center; margin-top: .2rem; }
+    .social-link {
+      display: inline-flex; align-items: center; gap: .3rem;
+      font-size: .76rem; font-weight: 500; color: var(--forest);
+      background: var(--sky); border: 1px solid var(--border);
+      border-radius: .28rem; padding: .27rem .58rem; text-decoration: none; transition: all .2s;
+    }
+    .social-link:hover { background: var(--forest); color: #fff; }
+
+    .bio-col h1 { font-family: 'Lora', serif; font-size: 2.1rem; color: var(--forest); }
+    .bio-role { font-size: .98rem; color: var(--canopy); font-weight: 600; margin: .22rem 0 1rem; }
+    .bio-col p { color: var(--muted); font-size: .95rem; margin-bottom: .85rem; }
+    .bio-col a { color: var(--canopy); }
+    .bio-col strong { color: var(--ink); }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem; }
+    .interests h3, .education h3 { font-family: 'Lora', serif; font-size: 1rem; color: var(--forest); margin-bottom: .65rem; }
+    .interests ul { list-style: none; }
+    .interests li { font-size: .88rem; color: var(--muted); padding: .2rem 0; display: flex; gap: .45rem; align-items: flex-start; }
+    .interests li::before { content: '🌿'; font-size: .72rem; margin-top: .28rem; flex-shrink: 0; }
+    .edu-entry { display: flex; gap: .45rem; margin-bottom: .6rem; align-items: flex-start; }
+    .edu-entry::before { content: '🎓'; font-size: .76rem; margin-top: .22rem; flex-shrink: 0; }
+    .edu-deg { font-weight: 600; font-size: .88rem; color: var(--ink); }
+    .edu-sub { font-size: .8rem; color: var(--gold); font-style: italic; }
+    .edu-inst { font-size: .8rem; color: var(--muted); }
+
+    /* SECTIONS */
+    .section { padding: 2.8rem 0; border-bottom: 1px solid var(--border); }
+    .section-header { margin-bottom: 1.6rem; }
+    .section-header h2 { font-family: 'Lora', serif; font-size: 1.55rem; color: var(--forest); }
+    .section-header p { font-size: .9rem; color: var(--muted); margin-top: .3rem; }
+    .section-rule { width: 40px; height: 3px; background: var(--leaf); border-radius: 2px; margin: .45rem 0 0; }
+
+    /* PUBLICATIONS / PROJECTS cards */
+    .pub-list { display: flex; flex-direction: column; gap: 1rem; }
+    .pub-card {
+      display: grid; grid-template-columns: 80px 1fr; gap: 1.2rem;
+      background: #fff; border: 1px solid var(--border); border-radius: .4rem;
+      padding: 1.1rem; transition: box-shadow .2s;
+    }
+    .pub-card:hover { box-shadow: 0 4px 18px #1C3A2B14; }
+    .pub-year {
+      display: flex; align-items: flex-start; justify-content: center;
+      padding-top: .1rem;
+    }
+    .pub-year span {
+      font-family: 'Lora', serif; font-size: 1.4rem; font-weight: 600;
+      color: var(--leaf); line-height: 1;
+    }
+    .pub-body h3 { font-family: 'Lora', serif; font-size: .98rem; color: var(--forest); margin-bottom: .28rem; line-height: 1.35; }
+    .pub-authors { font-size: .8rem; color: var(--muted); margin-bottom: .25rem; }
+    .pub-authors strong { color: var(--ink); }
+    .pub-journal { font-size: .8rem; color: var(--gold); font-style: italic; margin-bottom: .4rem; }
+    .pub-tags { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .4rem; }
+    .tag { font-size: .7rem; padding: .14rem .48rem; border-radius: 2rem; background: var(--sky); border: 1px solid var(--border); color: var(--canopy); font-weight: 500; }
+    .pub-links { display: flex; gap: .45rem; margin-top: .5rem; }
+    .plink { font-size: .76rem; color: var(--forest); font-weight: 600; text-decoration: none; border: 1px solid var(--border); border-radius: .22rem; padding: .14rem .45rem; transition: all .15s; }
+    .plink:hover { background: var(--forest); color: #fff; border-color: var(--forest); }
+    .badge { font-size: .68rem; font-weight: 700; background: var(--gold); color: #fff; border-radius: .2rem; padding: .12rem .4rem; margin-left: .3rem; vertical-align: middle; }
+
+    /* PROJECT cards (ongoing) */
+    .project-list { display: flex; flex-direction: column; gap: 1rem; }
+    .project-card {
+      display: grid; grid-template-columns: 100px 1fr; gap: 1.2rem;
+      background: #fff; border: 1px solid var(--border); border-radius: .4rem;
+      padding: 1.1rem; transition: box-shadow .2s;
+    }
+    .project-card:hover { box-shadow: 0 4px 18px #1C3A2B14; }
+    .project-thumb {
+      background: var(--sky); border-radius: .3rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.4rem; aspect-ratio: 1;
+    }
+    .project-body h3 { font-family: 'Lora', serif; font-size: .98rem; color: var(--forest); margin-bottom: .25rem; }
+    .project-meta { font-size: .76rem; color: var(--gold); font-weight: 600; margin-bottom: .3rem; }
+    .project-body p { font-size: .86rem; color: var(--muted); }
+
+    /* TALKS */
+    .talk-list { display: flex; flex-direction: column; gap: .75rem; }
+    .talk-item {
+      display: grid; grid-template-columns: 60px 1fr; gap: 1rem;
+      background: #fff; border: 1px solid var(--border); border-radius: .4rem;
+      padding: .9rem 1.1rem; transition: box-shadow .2s;
+    }
+    .talk-item:hover { box-shadow: 0 3px 12px #1C3A2B10; }
+    .talk-year { font-family: 'Lora', serif; font-size: 1rem; color: var(--leaf); font-weight: 600; padding-top: .05rem; }
+    .talk-title { font-size: .9rem; color: var(--ink); font-weight: 500; margin-bottom: .18rem; }
+    .talk-venue { font-size: .8rem; color: var(--muted); }
+    .talk-type { font-size: .7rem; font-weight: 600; color: var(--canopy); background: var(--sky); border: 1px solid var(--border); border-radius: 2rem; padding: .1rem .4rem; margin-left: .35rem; }
+
+    /* AWARDS */
+    .award-list { display: flex; flex-direction: column; gap: .6rem; }
+    .award-item { display: flex; gap: .7rem; align-items: flex-start; font-size: .9rem; }
+    .award-item::before { content: '🏆'; font-size: .8rem; margin-top: .2rem; flex-shrink: 0; }
+    .award-name { font-weight: 600; color: var(--ink); }
+    .award-org { color: var(--muted); font-size: .83rem; }
+
+    /* BLOG */
+    .blog-list { display: flex; flex-direction: column; gap: .9rem; }
+    .blog-item {
+      display: grid; grid-template-columns: 64px 1fr; gap: 1.1rem;
+      background: #fff; border: 1px solid var(--border); border-radius: .4rem;
+      padding: 1rem 1.2rem; text-decoration: none; color: inherit; transition: box-shadow .2s, border-color .2s;
+    }
+    .blog-item:hover { box-shadow: 0 3px 14px #1C3A2B10; border-color: var(--moss); }
+    .blog-date { text-align: center; font-size: .72rem; color: var(--muted); line-height: 1.4; }
+    .blog-date strong { display: block; font-family: 'Lora', serif; font-size: 1.55rem; color: var(--forest); line-height: 1.1; }
+    .blog-title { font-family: 'Lora', serif; font-size: .97rem; color: var(--forest); margin-bottom: .22rem; }
+    .blog-excerpt { font-size: .83rem; color: var(--muted); }
+    .blog-tag { display: inline-block; margin-top: .35rem; font-size: .72rem; font-weight: 600; color: var(--canopy); }
+
+    /* CONTACT */
+    #contact-section { padding: 2.8rem 0 4rem; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .contact-text p { font-size: .94rem; color: var(--muted); margin-bottom: .8rem; }
+    .contact-text a { color: var(--canopy); }
+    .cinfo { display: flex; gap: .8rem; font-size: .9rem; color: var(--muted); margin-bottom: .5rem; }
+    .cinfo strong { color: var(--forest); min-width: 90px; }
+
+    /* FOOTER */
+    footer { background: var(--forest); color: #9DBCA8; text-align: center; padding: 1.4rem; font-size: .82rem; }
+    footer a { color: var(--moss); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* MOBILE */
+    @media (max-width: 720px) {
+      nav { padding: .75rem 1.1rem; }
+      .nav-links { gap: .85rem; }
+      .page { padding: 5rem 1.1rem 0; }
+      #about { grid-template-columns: 1fr; gap: 1.5rem; }
+      .profile-col { flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: .75rem; }
+      .avatar { width: 80px; height: 80px; font-size: 2.2rem; }
+      .two-col { grid-template-columns: 1fr; gap: 1rem; }
+      .pub-card, .project-card { grid-template-columns: 1fr; }
+      .talk-item { grid-template-columns: 48px 1fr; }
+      .blog-item { grid-template-columns: 52px 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="#about">Denver T. Cayetano</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#talks">Talks</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="profile-col">
+      <div class="avatar">🌳</div>
+      <div class="profile-name">Denver T. Cayetano</div>
+      <div class="profile-org">Post-Doctoral Fellow<br>National Herbarium of Belize<br>Caves Branch Botanical Garden</div>
+      <div class="profile-title">Forest Ecologist · Forester<br>Conservation Scientist</div>
+      <div class="social-links">
+        <a class="social-link" href="mailto:dcayetano@ufl.edu">✉ Email</a>
+        <a class="social-link" href="https://github.com/yourusername" target="_blank">GitHub</a>
+        <a class="social-link" href="https://twitter.com/yourusername" target="_blank">Twitter</a>
+        <a class="social-link" href="#" target="_blank">ResearchGate</a>
+        <a class="social-link" href="#">CV ↓</a>
+      </div>
+    </div>
+
+    <div class="bio-col">
+      <h1>Denver T. Cayetano</h1>
+      <div class="bio-role">Post-Doctoral Fellow in Botanical Collections &amp; Forest Ecology — Belize</div>
+      <p>
+        I am a Belizean forest ecologist and conservation scientist working at the intersection of <strong>tropical forest ecology</strong>, <strong>disturbance ecology</strong>, and <strong>sustainable forestry</strong>. My research investigates how lianas, hurricanes, and logging shape the structure, carbon dynamics, and biodiversity of Belize's forests — and how targeted silvicultural interventions like selective liana cutting can simultaneously benefit timber yields, carbon sequestration, and forest recovery.
+      </p>
+      <p>
+        I recently completed my <strong>Ph.D. at the University of Florida</strong> (2022–2025), where I established a large-scale liana-cutting experiment in the Belize Maya Forest in collaboration with <a href="https://www.nature.org" target="_blank">The Nature Conservancy</a>'s Natural Climate Solutions Science Team, funded by the Bezos Earth Fund. I hold an <strong>MSc from Georg-August-Universität Göttingen</strong> (Germany, with distinction), where I was awarded the Göttingen Prize for Forest Ecosystem Research.
+      </p>
+      <p>
+        I am currently a <strong>Post-Doctoral Fellow at the National Herbarium of Belize / Caves Branch Botanical Garden</strong>, where I am leading the digitization and curation of Belize's national plant collection and building research programs centered on forest ecology and biodiversity. I have also held research positions at the <a href="https://www.ox.ac.uk/" target="_blank">University of Oxford</a> and the <a href="https://www.rbge.org.uk/" target="_blank">Royal Botanic Garden Edinburgh</a>.
+      </p>
+      <div class="two-col">
+        <div class="interests">
+          <h3>Research Interests</h3>
+          <ul>
+            <li>Liana ecology &amp; disturbance dynamics</li>
+            <li>Carbon cycling &amp; forest productivity</li>
+            <li>Tropical biodiversity &amp; restoration</li>
+            <li>Sustainable forestry &amp; silviculture</li>
+            <li>Plant taxonomy &amp; botanical collections</li>
+            <li>Remote sensing &amp; forest monitoring</li>
+            <li>Community &amp; Indigenous forestry</li>
+          </ul>
+        </div>
+        <div class="education">
+          <h3>Education</h3>
+          <div class="edu-entry">
+            <div>
+              <div class="edu-deg">PhD, Forest Resources &amp; Conservation</div>
+              <div class="edu-sub">Tropical Conservation &amp; Development</div>
+              <div class="edu-inst">University of Florida, USA · 2022–2025</div>
+            </div>
+          </div>
+          <div class="edu-entry">
+            <div>
+              <div class="edu-deg">MSc, Forest Sciences &amp; Forest Ecology <em style="font-size:.75rem;color:var(--gold)">with distinction</em></div>
+              <div class="edu-sub">Tropical &amp; International Forestry · DAAD Scholar</div>
+              <div class="edu-inst">Georg-August-Universität Göttingen, Germany · 2019–2021</div>
+            </div>
+          </div>
+          <div class="edu-entry">
+            <div>
+              <div class="edu-deg">BSc, Natural Resources Management</div>
+              <div class="edu-inst">University of Belize · 2010–2014</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ONGOING RESEARCH -->
+  <section id="research" class="section">
+    <div class="section-header reveal">
+      <h2>Research &amp; Projects</h2>
+      <div class="section-rule"></div>
+      <p>Current and ongoing work in Belizean forests and beyond.</p>
+    </div>
+    <div class="project-list">
+
+      <div class="project-card reveal">
+        <div class="project-thumb">🌿</div>
+        <div class="project-body">
+          <div class="project-meta">2022 – Present · Ph.D. Research / TNC / Bezos Earth Fund</div>
+          <h3>Selective Liana Cutting Experiment, Belize Maya Forest</h3>
+          <p>I established a large-scale liana-cutting experiment across ~700 trees of six timber species in the Belize Maya Forest to explore how liana liberation affects timber yields, carbon sequestration, and forest community dynamics. Includes 40 forest monitoring plots. In collaboration with The Nature Conservancy's Natural Climate Solutions Science Team.</p>
+          <div class="pub-tags">
+            <span class="tag">Lianas</span><span class="tag">Carbon</span><span class="tag">Silviculture</span><span class="tag">Belize Maya Forest</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-thumb">📚</div>
+        <div class="project-body">
+          <div class="project-meta">2025 – Present · Post-Doctoral Research</div>
+          <h3>National Herbarium of Belize — Digitization &amp; Curation</h3>
+          <p>Leading an overhaul of Belize's National Herbarium to meet international standards, building volunteer and research programs centered on forest ecology and botanical collections, and forging partnerships with local and international institutions for long-term sustainability of the plant collection.</p>
+          <div class="pub-tags">
+            <span class="tag">Plant Taxonomy</span><span class="tag">Botanical Collections</span><span class="tag">Biodiversity</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-thumb">🔬</div>
+        <div class="project-body">
+          <div class="project-meta">2019 – Ongoing · Joint with Dr. Cathy Smith (Royal Holloway, UK)</div>
+          <h3>The Development of Research in Belize: Progress &amp; Perceived Barriers</h3>
+          <p>Exploring the post-independence growth of peer-reviewed research in Belize and identifying major barriers faced by Belizean and foreign researchers when conducting work in the country.</p>
+          <div class="pub-tags">
+            <span class="tag">Science Policy</span><span class="tag">Belize</span><span class="tag">Research Capacity</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-thumb">🪵</div>
+        <div class="project-body">
+          <div class="project-meta">2015 – Ongoing · Joint with Dr. Elma Kay &amp; Dr. Alex Finkral</div>
+          <h3>Regeneration of Big Leaf Mahogany in a Managed Forest, Belize</h3>
+          <p>Investigating the long-term impacts of low-intensity, reduced-impact logging on the natural regeneration of Big Leaf Mahogany — one of Belize's most economically and culturally significant tree species.</p>
+          <div class="pub-tags">
+            <span class="tag">Mahogany</span><span class="tag">Regeneration</span><span class="tag">RIL</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications" class="section">
+    <div class="section-header reveal">
+      <h2>Publications</h2>
+      <div class="section-rule"></div>
+      <p>Peer-reviewed articles, with most recent work first.</p>
+    </div>
+    <div class="pub-list">
+
+      <div class="pub-card reveal">
+        <div class="pub-year"><span>2026</span></div>
+        <div class="pub-body">
+          <h3>Selective liana cutting increases carbon and timber yields while supporting stand-scale forest recovery in a Belizean forest <span class="badge">In Prep</span></h3>
+          <div class="pub-authors"><strong>Cayetano, D. T.</strong>, Putz, F. E., … &amp; Johnson, D. J.</div>
+          <div class="pub-journal">Target: Journal of Applied Ecology (BES)</div>
+          <div class="pub-tags"><span class="tag">Lianas</span><span class="tag">Carbon</span><span class="tag">Timber</span><span class="tag">Belize</span></div>
+        </div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-year"><span>2025</span></div>
+        <div class="pub-body">
+          <h3>Local, metacommunity, and landscape properties are crucial to restoring tropical biodiversity <span class="badge">In Review</span></h3>
+          <div class="pub-authors"><strong>Cayetano, D. T.</strong>, Zemp, D. C., Buchori, D., Fiedler, S., Grass, I., Hölscher, D., … &amp; Guerrero-Ramírez, N. R.</div>
+          <div class="pub-journal">Nature Communications Sustainability</div>
+          <div class="pub-tags"><span class="tag">Biodiversity</span><span class="tag">Restoration</span><span class="tag">Landscape Ecology</span></div>
+        </div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-year"><span>2025</span></div>
+        <div class="pub-body">
+          <h3>Cyclones increase growth differences and reverse mortality risks between liana-laden and liana-free trees in Belizean forests</h3>
+          <div class="pub-authors"><strong>Cayetano, D. T.</strong>, Cho, P., Hogan, J. A., Magee, L., Riley, S. S., Korol, Y., Bohlman, S., Machado, S., Putz, F. E., Romero, C., Vogel, J., &amp; Johnson, D. J.</div>
+          <div class="pub-journal">Journal of Ecology</div>
+          <div class="pub-tags"><span class="tag">Lianas</span><span class="tag">Hurricanes</span><span class="tag">Tree Mortality</span><span class="tag">Belize</span></div>
+          <div class="pub-links"><a class="plink" href="#">PDF</a></div>
+        </div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-year"><span>2025</span></div>
+        <div class="pub-body">
+          <h3>Discriminating temporal decline and death of a savanna oak using multi-year imaging spectroscopy <span class="badge">Submitted</span></h3>
+          <div class="pub-authors">Magee, L.; <strong>Cayetano, D. T.</strong>; Rocha, K. D.; Lu, Y.; Bohlman, S.; Anderson-Teixeira, K.; Lutz, J.; Silva, C.; Johnson, D.</div>
+          <div class="pub-journal">International Journal of Applied Earth Observation and Geoinformation</div>
+          <div class="pub-tags"><span class="tag">Remote Sensing</span><span class="tag">Spectroscopy</span><span class="tag">Savanna</span></div>
+        </div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-year"><span>2024</span></div>
+        <div class="pub-body">
+          <h3>Oaks enhance early life stage longleaf pine growth and density in a subtropical xeric savanna</h3>
+          <div class="pub-authors">Magee, L., Lapalikar, S., <strong>Cayetano, D. T.</strong>, Machado, S., Pandit, K., Trentin, B., … &amp; Johnson, D. J.</div>
+          <div class="pub-journal">Oecologia</div>
+          <div class="pub-tags"><span class="tag">Savanna Ecology</span><span class="tag">Longleaf Pine</span><span class="tag">Competition</span></div>
+          <div class="pub-links"><a class="plink" href="#">PDF</a></div>
+        </div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-year"><span>2023</span></div>
+        <div class="pub-body">
+          <h3>Liana cutting in selectively logged forests increases both carbon sequestration and timber yields</h3>
+          <div class="pub-authors">Putz, F. E., <strong>Cayetano, D. T.</strong>, Belair, E. P., Ellis, P. W., Roopsind, A., Griscom, B. W., … &amp; Romero, C.</div>
+          <div class="pub-journal">Forest Ecology and Management, 539, 121038</div>
+          <div class="pub-tags"><span class="tag">Lianas</span><span class="tag">Carbon</span><span class="tag">Logging</span><span class="tag">NCS</span></div>
+          <div class="pub-links"><a class="plink" href="#">PDF</a></div>
+        </div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-year"><span>2017</span></div>
+        <div class="pub-body">
+          <h3>Logging impacts on liana regeneration and diversity in Belize</h3>
+          <div class="pub-authors">Mesh, S., <strong>Cayetano, D. T.</strong>, Requena, E., Alvarez, Kay, E., Finkral, A., Roopsind, A., &amp; Putz, F. E.</div>
+          <div class="pub-journal">Journal of Tropical Forest Science</div>
+          <div class="pub-tags"><span class="tag">Lianas</span><span class="tag">Logging</span><span class="tag">Belize</span></div>
+          <div class="pub-links"><a class="plink" href="#">PDF</a></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TALKS -->
+  <section id="talks" class="section">
+    <div class="section-header reveal">
+      <h2>Talks &amp; Presentations</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="talk-list">
+      <div class="talk-item reveal">
+        <div class="talk-year">2025</div>
+        <div>
+          <div class="talk-title">Cyclones increase growth differences and reverse mortality risks between liana-laden and liana-free trees in Belizean forests <span class="talk-type">Oral</span></div>
+          <div class="talk-venue">Association of Tropical Biology and Conservation</div>
+        </div>
+      </div>
+      <div class="talk-item reveal">
+        <div class="talk-year">2024</div>
+        <div>
+          <div class="talk-title">Hurricanes reduce the prevalence of liana-infested trees in Belizean tropical forests <span class="talk-type">Oral</span></div>
+          <div class="talk-venue">FGSO Symposium, University of Florida</div>
+        </div>
+      </div>
+      <div class="talk-item reveal">
+        <div class="talk-year">2024</div>
+        <div>
+          <div class="talk-title">Liana clustering creates potential for larger benefits from focal tree liberation from lianas <span class="talk-type">Best Poster 🏆</span></div>
+          <div class="talk-venue">FGSO Symposium, University of Florida</div>
+        </div>
+      </div>
+      <div class="talk-item reveal">
+        <div class="talk-year">2019</div>
+        <div>
+          <div class="talk-title">Belize's National Herbarium — further development of an important national resource <span class="talk-type">Invited</span></div>
+          <div class="talk-venue">United Kingdom-Belize Association Annual Meeting</div>
+        </div>
+      </div>
+      <div class="talk-item reveal">
+        <div class="talk-year">2017</div>
+        <div>
+          <div class="talk-title">Long Term Forest Monitoring in Belize: Challenges, Successes &amp; Opportunities <span class="talk-type">Invited</span></div>
+          <div class="talk-venue">Global Trees Symposium</div>
+        </div>
+      </div>
+      <div class="talk-item reveal">
+        <div class="talk-year">2016</div>
+        <div>
+          <div class="talk-title">Forestry &amp; Youth: Opportunities for Sustainability <span class="talk-type">Invited</span></div>
+          <div class="talk-venue">Global Trees Symposium</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section class="section">
+    <div class="section-header reveal">
+      <h2>Fellowships &amp; Awards</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="award-list">
+      <div class="award-item reveal">
+        <div><div class="award-name">The Nature Conservancy Research Grant — Liana cutting as a natural climate solution</div><div class="award-org">The Nature Conservancy / Bezos Earth Fund · 2022–2024</div></div>
+      </div>
+      <div class="award-item reveal">
+        <div><div class="award-name">Göttingen Prize for Forest Ecosystem Research</div><div class="award-org">Georg-August-Universität Göttingen · May 2022 — awarded for MSc thesis</div></div>
+      </div>
+      <div class="award-item reveal">
+        <div><div class="award-name">DAAD EPOS Scholarship (Development-Related Postgraduate Courses)</div><div class="award-org">German Academic Exchange Service · 2019–2021</div></div>
+      </div>
+      <div class="award-item reveal">
+        <div><div class="award-name">Honorary Research Associate</div><div class="award-org">University of Oxford · March 2018–2020</div></div>
+      </div>
+      <div class="award-item reveal">
+        <div><div class="award-name">One Young World All Bar None Scholarship</div><div class="award-org">One Young World · October 2014</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog" class="section">
+    <div class="section-header reveal">
+      <h2>Blog &amp; Field Notes</h2>
+      <div class="section-rule"></div>
+      <p>Reflections on fieldwork, conservation, and forest science in Belize and beyond. Add your first posts here!</p>
+    </div>
+    <div class="blog-list">
+      <a class="blog-item reveal" href="#">
+        <div class="blog-date"><strong>—</strong>Coming<br>Soon</div>
+        <div>
+          <div class="blog-title">What Three Years in the Belize Maya Forest Taught Me</div>
+          <div class="blog-excerpt">A personal reflection on establishing a liana-cutting experiment, the fieldwork, the surprises, and what the trees are telling us about forest recovery after hurricanes.</div>
+          <span class="blog-tag">🌿 Field Notes</span>
+        </div>
+      </a>
+      <a class="blog-item reveal" href="#">
+        <div class="blog-date"><strong>—</strong>Coming<br>Soon</div>
+        <div>
+          <div class="blog-title">Lianas: The Overlooked Drivers of Tropical Forest Carbon</div>
+          <div class="blog-excerpt">Most people have never heard of lianas. But these woody climbing plants may hold the key to unlocking better carbon sequestration in logged tropical forests.</div>
+          <span class="blog-tag">🔬 Science</span>
+        </div>
+      </a>
+      <a class="blog-item reveal" href="#">
+        <div class="blog-date"><strong>—</strong>Coming<br>Soon</div>
+        <div>
+          <div class="blog-title">Why Belize Needs Its Own Scientists</div>
+          <div class="blog-excerpt">On the barriers to doing research in small nations, the value of local knowledge, and why I came home after studying in Germany and the US.</div>
+          <span class="blog-tag">✍ Reflection</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact-section">
+    <div class="section-header reveal">
+      <h2>Contact</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-text reveal">
+        <p>I'm always happy to connect — whether it's about research collaboration, consultancy on forest ecology or conservation projects, field visits to Belize, or just talking trees.</p>
+        <p>For media enquiries, speaking invitations, student supervision opportunities, or partnerships, please reach out by email.</p>
+      </div>
+      <div class="reveal">
+        <div class="cinfo"><strong>Email</strong> dcayetano@ufl.edu</div>
+        <div class="cinfo"><strong>Location</strong> Belmopan City, Belize</div>
+        <div class="cinfo"><strong>Affiliation</strong> National Herbarium of Belize / Caves Branch Botanical Garden</div>
+        <div class="cinfo"><strong>Phone</strong> (352) 709-4002</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2025 Denver T. Cayetano · Forest Ecologist, Belize · Hosted on <a href="#">GitHub Pages</a></p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+</script>
+</body>
+</html>
