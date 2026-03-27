@@ -1,34 +1,117 @@
- <!-- BLOG -->
-  <section id="blog" class="section">
-    <div class="section-header reveal">
-      <h2>Blog &amp; Field Notes</h2>
-      <div class="section-rule"></div>
-      <p>Reflections on fieldwork, conservation, and forest science in Belize and beyond!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Post — Denver T. Cayetano</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest: #1C3A2B; --canopy: #2D5E3E; --leaf: #4A8C5C;
+      --moss: #7AB68A; --sky: #E8F0EA; --paper: #F6F4EF;
+      --ink: #1A1F1C; --muted: #5A6B60; --border: #D0DDD4; --gold: #A0750A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.75; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--forest);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .8rem 2.5rem;
+    }
+    .nav-name { font-family: 'Lora', serif; font-size: 1.05rem; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-links a { color: #B8D8C0; font-size: .85rem; text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+
+    .post-wrap { max-width: 720px; margin: 0 auto; padding: 7rem 2rem 5rem; }
+
+    .post-meta { margin-bottom: 2rem; }
+    .post-tag {
+      display: inline-block; font-size: .72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .08em;
+      color: var(--canopy); background: var(--sky);
+      border: 1px solid var(--border); border-radius: 2rem;
+      padding: .2rem .7rem; margin-bottom: .9rem;
+    }
+    .post-title {
+      font-family: 'Lora', serif; font-size: clamp(1.7rem, 4vw, 2.4rem);
+      color: var(--forest); line-height: 1.2; margin-bottom: .7rem;
+    }
+    .post-byline { font-size: .88rem; color: var(--muted); }
+    .post-byline strong { color: var(--ink); }
+    .post-divider { width: 48px; height: 3px; background: var(--leaf); border-radius: 2px; margin: 1.4rem 0 2rem; }
+
+    .post-body p { font-size: 1.02rem; color: var(--muted); margin-bottom: 1.2rem; }
+    .post-body h2 { font-family: 'Lora', serif; font-size: 1.35rem; color: var(--forest); margin: 2rem 0 .7rem; }
+    .post-body a { color: var(--canopy); }
+
+    .post-footer {
+      margin-top: 3rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .88rem; font-weight: 600; color: var(--forest);
+      text-decoration: none; transition: gap .2s;
+    }
+    .back-link:hover { gap: .65rem; }
+
+    footer { background: var(--forest); color: #9DBCA8; text-align: center; padding: 1.4rem; font-size: .82rem; margin-top: 4rem; }
+    footer a { color: var(--moss); }
+
+    @media (max-width: 600px) {
+      nav { padding: .75rem 1.1rem; }
+      .nav-links { gap: .85rem; }
+      .post-wrap { padding: 6rem 1.2rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="index.html">Denver T. Cayetano</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#research">Research</a></li>
+    <li><a href="index.html#publications">Publications</a></li>
+    <li><a href="index.html#talks">Talks</a></li>
+    <li><a href="index.html#blog">Blog</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="post-wrap">
+  <div class="post-meta">
+    <span class="post-tag">🌿 Field Notes</span>
+    <h1 class="post-title">This Is a Test Blog Post</h1>
+    <div class="post-byline">
+      By <strong>Denver T. Cayetano</strong> · March 26, 2026 · 2 min read
     </div>
-    <div class="blog-list">
-      <a class="blog-item reveal" href="test-blog.html">
-        <div class="blog-date"><strong>—</strong>Coming<br>Soon</div>
-        <div>
-          <div class="blog-title">What Three Years in the Belize Maya Forest Taught Me</div>
-          <div class="blog-excerpt">A personal reflection on establishing a liana-cutting experiment, the fieldwork, the surprises, and what the trees are telling us about forest recovery after hurricanes.</div>
-          <span class="blog-tag">🌿 Field Notes</span>
-        </div>
-      </a>
-      <a class="blog-item reveal" href="#">
-        <div class="blog-date"><strong>—</strong>Coming<br>Soon</div>
-        <div>
-          <div class="blog-title">Lianas: The Overlooked Drivers of Tropical Forest Carbon</div>
-          <div class="blog-excerpt">Most people have never heard of lianas. But these woody climbing plants may hold the key to unlocking better carbon sequestration in logged tropical forests.</div>
-          <span class="blog-tag">🔬 Science</span>
-        </div>
-      </a>
-      <a class="blog-item reveal" href="#">
-        <div class="blog-date"><strong>—</strong>Coming<br>Soon</div>
-        <div>
-          <div class="blog-title">Why Belize Needs Its Own Scientists</div>
-          <div class="blog-excerpt">On the barriers to doing research in small nations, the value of local knowledge, and why I came home after studying in Germany and the US.</div>
-          <span class="blog-tag">✍ Reflection</span>
-        </div>
-      </a>
-    </div>
-  </section>
+  </div>
+  <div class="post-divider"></div>
+
+  <div class="post-body">
+    <p>
+     Paragraph 1
+    </p>
+    <p>
+     Paragraph 2
+    </p>
+  </div>
+
+  <div class="post-footer">
+    <a class="back-link" href="index.html#blog">← Back to Blog</a>
+    <span style="font-size:.85rem; color:var(--muted);">Denver T. Cayetano · Forester / Ecologist \ Conservation Scientist, Belize</span>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Denver T. Cayetano · Hosted on <a href="#">GitHub Pages</a></p>
+</footer>
+
+</body>
+</html>
