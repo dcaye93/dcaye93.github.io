@@ -89,29 +89,43 @@
     <span class="post-tag">🌿 Field Notes</span>
     <h1 class="post-title">This Is a Test Blog Post</h1>
     <div class="post-byline">
-      By <strong>Denver T. Cayetano</strong> · March 26, 2026 · 2 min read
+      By <strong>Denver T. Cayetano</strong> · <span id="post-date"></span> · <span id="read-time"></span>
     </div>
   </div>
   <div class="post-divider"></div>
 
-  <div class="post-body">
-    <p>
-     Paragraph 1
-    </p>
-    <p>
-     Paragraph 2
-    </p>
+  <!-- ✏️ WRITE YOUR POST CONTENT BELOW HERE -->
+  <div class="post-body" id="post-body">
+
+    <p>Paragraph 1</p>
+
+    <p>Paragraph 2</p>
+
   </div>
+  <!-- ✏️ STOP WRITING HERE -->
 
   <div class="post-footer">
     <a class="back-link" href="index.html#blog">← Back to Blog</a>
-    <span style="font-size:.85rem; color:var(--muted);">Denver T. Cayetano · Forester / Ecologist \ Conservation Scientist, Belize</span>
+    <span style="font-size:.85rem; color:var(--muted);">Denver T. Cayetano · Forest Ecologist, Belize</span>
   </div>
 </div>
 
 <footer>
   <p>© 2025 Denver T. Cayetano · Hosted on <a href="#">GitHub Pages</a></p>
 </footer>
+
+<script>
+  // Auto date — shows today's date when page loads
+  const date = new Date();
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('post-date').textContent = date.toLocaleDateString('en-US', options);
+
+  // Auto reading time — counts words, assumes 200 words per minute
+  const text = document.getElementById('post-body').innerText;
+  const wordCount = text.trim().split(/\s+/).length;
+  const minutes = Math.max(1, Math.round(wordCount / 200));
+  document.getElementById('read-time').textContent = minutes + ' min read';
+</script>
 
 </body>
 </html>
